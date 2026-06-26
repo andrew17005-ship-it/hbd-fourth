@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday @fourthtinyher 🤍</title>
+    <!-- นำเข้าเอฟเฟกต์พลุกระดาษโทนสีพิเศษ -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* โทนสี Minimal Luxury: เทาอุ่นและเบจแชมเปญ */
+            background: linear-gradient(135deg, #f4f1ea, #e8e2d5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #333333;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        /* ดีไซน์การ์ดแบบเรียบหรู */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(184, 162, 142, 0.15);
+        }
+
+        /* พื้นที่สำหรับใส่รูปภาพในอนาคต */
+        .photo-placeholder {
+            width: 130px;
+            height: 130px;
+            background: #eae4d9;
+            border-radius: 50%;
+            margin: 0 auto 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #dcd3c1;
+            color: #8c8275;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .photo-placeholder {
+            border-color: #b8a28e;
+            background: #fff;
+        }
+
+        /* หัวข้อและเลขอายุ */
+        .instagram-handle {
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            color: #8c8275;
+            text-transform: lowercase;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            color: #4a443c;
+            font-weight: 400;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .age-badge {
+            display: inline-block;
+            font-size: 1.1rem;
+            color: #b8a28e;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        /* ส่วนข้อความอวยพร (ซ่อนไว้ตอนแรก) */
+        .wishes {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #5c554c;
+            line-height: 1.8;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .wishes.open {
+            max-height: 400px;
+            margin-top: 15px;
+            padding-top: 25px;
+            border-top: 1px solid #e8e2d5;
+        }
+
+        .hint-text {
+            color: #b8a28e;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* แสงวิบวับสไตล์ Luxury */
+        .sparkle {
+            position: absolute;
+            color: #dcd3c1;
+            font-size: 1.2rem;
+            animation: blink 2s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        .sp-1 { top: 20px; left: 30px; animation-delay: 0s; }
+        .sp-2 { top: 40px; right: 40px; animation-delay: 0.5s; }
+        .sp-3 { bottom: 30px; left: 40px; animation-delay: 1s; }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card" onclick="openCard()">
+            <!-- แสงวิบวับประดับการ์ด -->
+            <div class="sparkle sp-1">✦</div>
+            <div class="sparkle sp-2">✦</div>
+            <div class="sparkle sp-3">✦</div>
+
+            <!-- วงกลมสำหรับใส่รูป (คุณสามารถเปลี่ยนเป็นแท็ก <img> ได้ทีหลัง) -->
+            <img src="fourth.jpg" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; border: 2px solid #dcd3c1;">
+            
+            <p class="instagram-handle">@fourthtinyher</p>
+            <h1>Happy Birthday ✨</h1>
+            <p class="age-badge">Turning 17</p>
+            
+            <p class="hint-text" id="hint">— tap to open —</p>
+
+            <!-- กล่องข้อความอวยพร (คุณมาแก้ไขคำอวยพรตรงนี้ได้เลย) -->
+            <div class="wishes" id="wishBox">
+                <p>สุขสันต์วันเกิดครบรอบ 17 ปีครับ ✨</p>
+                <p>ขอให้ปีนี้เป็นปีที่เติบโตอย่างงดงามและมีความสุข</p>
+                <p>รายล้อมไปด้วยสิ่งดีๆ และผู้คนทีน่ารัก</p>
+                <p>สมปรารถนาในทุกๆ เรื่องเลยครับ</p>
+                <p style="margin-top: 15px; font-weight: 400; color: #b8a28e;">🤍 ✨ 🥂</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openCard() {
+            const wishBox = document.getElementById('wishBox');
+            const hint = document.getElementById('hint');
+            
+            wishBox.classList.add('open');
+            hint.style.opacity = '0';
+
+            // จุดพลุกระดาษ โทนสี Luxury (ทอง, เงิน, ขาว, แชมเปญ)
+            const luxuryColors = ['#dcd3c1', '#b8a28e', '#ffffff', '#e8e2d5', '#4a443c'];
+            
+            duration = 2.5 * 1000;
+            end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 2,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: luxuryColors
+                });
+                confetti({
+                    particleCount: 2,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: luxuryColors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    </script>
+</body>
+</html>
